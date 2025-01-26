@@ -20,8 +20,27 @@ def generate_qr():
         data = url
         filename = "url_qrcode.png"
     elif qr_type == 'vcard':
-        # Handle vCard data
-        data = "vCard Data"  # Placeholder
+        first_name = request.form.get('first_name', '').strip()
+        last_name = request.form.get('last_name', '').strip()
+        phone = request.form.get('phone', '').strip()
+        email = request.form.get('email', '').strip()
+        company = request.form.get('company', '').strip()
+        job_title = request.form.get('job_title', '').strip()
+        street = request.form.get('street', '').strip()
+        city = request.form.get('city', '').strip()
+        country = request.form.get('country', '').strip()
+
+        # Construct the vCard data with all placeholders in the ADR field
+        data = f"""BEGIN:VCARD
+        VERSION:3.0
+        N:{last_name};{first_name};;;
+        FN:{first_name} {last_name}
+        TEL:{phone}
+        EMAIL:{email}
+        ORG:{company}
+        TITLE:{job_title}
+        ADR:;;{street};{city};;;{country}
+        END:VCARD"""
         filename = "vcard_qrcode.png"
     elif qr_type == 'text':
         text = request.form.get('text', '').strip()
