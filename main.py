@@ -12,7 +12,7 @@ def generate_qr():
     qr_type = request.form.get('type')
     data = ""  # Initialize data
 
-    # Handle different QR types (your existing logic here)
+    # Handle different QR types
     if qr_type == 'url':
         url = request.form.get('url')
         if not url:
@@ -30,17 +30,17 @@ def generate_qr():
         city = request.form.get('city', '').strip()
         country = request.form.get('country', '').strip()
 
-        # Construct the vCard data with all placeholders in the ADR field
+        # Construct the vCard data with proper formatting
         data = f"""BEGIN:VCARD
-        VERSION:3.0
-        N:{last_name};{first_name};;;
-        FN:{first_name} {last_name}
-        TEL:{phone}
-        EMAIL:{email}
-        ORG:{company}
-        TITLE:{job_title}
-        ADR:;;{street};{city};;;{country}
-        END:VCARD"""
+VERSION:3.0
+N:{last_name};{first_name};;;
+FN:{first_name} {last_name}
+TEL:{phone}
+EMAIL:{email}
+ORG:{company}
+TITLE:{job_title}
+ADR:;;{street};{city};;;{country}
+END:VCARD"""
         filename = "vcard_qrcode.png"
     elif qr_type == 'text':
         text = request.form.get('text', '').strip()
